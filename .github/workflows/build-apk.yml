@@ -25,6 +25,10 @@ jobs:
 
       - name: Подключить библиотеку Excel (работает без интернета)
         run: |
+          mkdir -p www
+          if [ ! -f www/index.html ]; then
+            if [ -f index.html ]; then cp index.html www/index.html; else echo "Не найден index.html: загрузите его в репозиторий (в папку www или в корень)"; exit 1; fi
+          fi
           cp node_modules/exceljs/dist/exceljs.min.js www/exceljs.min.js
           sed -i 's#https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js#exceljs.min.js#' www/index.html
 
